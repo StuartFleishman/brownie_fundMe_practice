@@ -12,4 +12,5 @@ networks:
     verify: True
   development: 
     verify: False
-    
+  ganache-local:
+    verify: False  
