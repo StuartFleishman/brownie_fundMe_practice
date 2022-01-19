@@ -1,5 +1,6 @@
 from brownie import accounts, FundMe, MockV3Aggregator, network, config
 from scripts.helpful_scripts import get_account
+from Web3 import Web3
 
 def deploy_simple_storage():
   account = get_account()
@@ -10,8 +11,10 @@ def deploy_simple_storage():
     ]
   else:
     print(f"The active netowrk is {network.show_active()}")
-    mock_aggregator = MockV3Aggregator.deploy(18, 200000000000000000000, {"from": account})
-    price_feed_address = mock_aggregator.address
+    if len(MockV3Aggregator) <= 0:
+      MockV3Aggregator.deploy(18, Web3.toWei(2000, "ether"), {"from": account})
+    #use the most recently deployed MockV3Aggregator
+    price_feed_address = MockV3Aggregator[-1].address
 
   fund_me = FundMe.deploy(
     price_feed_address,
