@@ -4,7 +4,7 @@ from scripts.helpful_scripts import get_account, deploy_mocks, LOCAL_BLOCKCHAIN_
 
 
 
-def deploy_simple_storage():
+def deploy_fund_me():
   account = get_account()
 
   if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
@@ -20,6 +20,7 @@ def deploy_simple_storage():
     {"from": account},
     publish_source=config["networks"][network.show_active()].get("verify")
     )
+  return fund_me
 
  
   print(f"Contract deployed to {fund_me.address}")
